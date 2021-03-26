@@ -1,0 +1,50 @@
+{
+  "name": "minesweeper-api",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js | pino-pretty",
+    "test": "jest",
+    "watch": "jest --watch--all",
+    "coverage": "jest --coverage",
+    "format": "prettier --write '{*.js,src/**/*.{js,jsx}}'",
+    "lint": "eslint '{*.js,src/**/*.{js,jsx}}'"
+  },
+  "pre-commit": {
+    "run": [
+      "format",
+      "lint",
+      "coverage"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resparzasoto/minesweeper-API.git"
+  },
+  "keywords": [],
+  "author": "Rubén Esparza <rubenesparzasoto@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/resparzasoto/minesweeper-API/issues"
+  },
+  "homepage": "https://github.com/resparzasoto/minesweeper-API#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.1",
+    "express-pino-logger": "^6.0.0",
+    "helmet": "^4.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "pino-pretty": "^4.7.1",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.2.1"
+  }
+}
