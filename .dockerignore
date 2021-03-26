@@ -1,0 +1,12 @@
+*.log
+.dockerignore
+.git
+.gitignore
+.eslintrc.json
+.prettierrc
+build/*
+Dockerfile
+node_modules
+postgresql/data
+npm-debug.log*
+README.md
