@@ -1,6 +1,9 @@
 # Editors
 .vscode
 
+# Utils
+CHALLENGE.md
+
 # Logs
 logs
 *.log
