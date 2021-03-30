@@ -1,34 +1,20 @@
 'use strict';
 
 const Field = require('../../entities/Field');
-const Square = require('../../entities/Cell');
-const createMatrix = require('../../utils/createMatrix');
-const createCord = require('./createCord');
-const createMine = require('./createMine');
+const generateMinesCommand = require('./generateMines');
+const generateContentCommand = require('./generateContent');
 
-module.exports = () => {
-  const execute = (gameConfiguration) => {
-    const { columns, rows, mines } = gameConfiguration;
-    let minesCount = 0;
+module.exports = (gameConfiguration) => {
+  const execute = () => {
+    const { columns, rows } = gameConfiguration;
+    let matrix;
 
-    const matrix = createMatrix(columns, rows);
+    matrix = generateMinesCommand(gameConfiguration).execute();
+    matrix = generateContentCommand(gameConfiguration).execute(matrix);
 
-    while (minesCount < mines) {
-      const cord = createCord().execute(gameConfiguration);
+    const field = new Field(columns, rows, matrix);
 
-      const square = matrix[cord.column][cord.row];
-
-      if (!square.content) {
-        const isMine = createMine().execute();
-
-        if (isMine) {
-          matrix[cord.column][cord.row] = new Square(isMine);
-          minesCount++;
-        }
-      }
-    }
-
-    return new Field(columns, rows, matrix);
+    return field;
   };
 
   return {

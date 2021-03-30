@@ -1,6 +1,7 @@
 'use strict';
 
-const Square = require('../entities/Cell');
+const Cell = require('../entities/Cell');
+const Cord = require('../entities/Cord');
 
 const createMatrix = (columns, rows) => {
   const matrix = [];
@@ -8,7 +9,8 @@ const createMatrix = (columns, rows) => {
   for (let column = 0; column < columns; column++) {
     matrix[column] = [];
     for (let row = 0; row < rows; row++) {
-      matrix[column][row] = new Square();
+      const cord = new Cord(column, row);
+      matrix[cord.column][cord.row] = new Cell(cord);
     }
   }
 

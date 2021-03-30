@@ -2,11 +2,20 @@
 
 const constants = require('../utils/constants');
 
-class Square {
-  constructor(content = undefined, state = constants.CELL.STATES.UNCOVERED) {
+class Cell {
+  constructor(
+    cord,
+    isMine = false,
+    content = undefined,
+    state = constants.CELL.STATES.UNCOVERED
+  ) {
+    // debug
+    this.column = cord.column;
+    this.row = cord.row;
+    this.isMine = isMine;
     this.content = content;
     this.state = state;
   }
 }
 
-module.exports = Square;
+module.exports = Cell;

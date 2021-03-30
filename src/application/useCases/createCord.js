@@ -2,14 +2,15 @@
 
 const Cord = require('../../entities/Cord');
 
-module.exports = () => {
-  const execute = (gameConfiguration) => {
+module.exports = (gameConfiguration) => {
+  const execute = () => {
     const { columns, rows } = gameConfiguration;
 
     const column = Math.floor(Math.random() * columns);
     const row = Math.floor(Math.random() * rows);
+    const cord = new Cord(column, row);
 
-    return new Cord(column, row);
+    return cord;
   };
 
   return {

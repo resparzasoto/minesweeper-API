@@ -2,9 +2,9 @@
 
 module.exports = () => {
   const execute = () => {
-    const randomMine = Math.round(Math.random());
+    const randomIsMine = Math.round(Math.random());
 
-    if (randomMine) {
+    if (randomIsMine) {
       return true;
     }
 
