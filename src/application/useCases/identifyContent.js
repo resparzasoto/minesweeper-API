@@ -7,53 +7,54 @@ const constants = require('../../utils/constants');
 module.exports = (gameConfiguration) => {
   const execute = (matrix, cord) => {
     const { columns, rows } = gameConfiguration;
-    let content = constants.CELL.CONTENT.BLANK;
+    let content;
 
     const borderColumn = columns - 1;
     const borderRow = rows - 1;
 
-    if (matrix[cord.column][cord.row].isMine) {
-      content = constants.CELL.CONTENT.MINE;
-    } else {
-      if (cord.column === 0 && cord.row === 0) {
-        // Esquina superior izquierda
-        // adjacentCount = 3;
-        // right => column + 1;
-        // lower-right-corner => column + 1 | row + 1
-        // down => row + 1
-        content = contentForUpperLeftCornerCell(matrix, cord);
-      } else if (cord.column === borderColumn && cord.row === borderRow) {
-        // Esquina inferior derecha
-        // adjacentCount = 3;
-        content = contentForLowerRightCornerCell(matrix, cord);
-      } else if (cord.column === borderColumn && cord.row === 0) {
-        // Esquina superior derecha
-        // adjacentCount = 3;
-        content = contentForUpperRightCornerCell(matrix, cord);
-      } else if (cord.column === 0 && cord.row === borderRow) {
-        // Esquina inferior izquierda
-        // adjacentCount = 3;
-        content = contentForLowerLeftCornerCell(matrix, cord);
-      } else if (cord.column === 0 && cord.row > 0) {
-        // Borde izquierdo
-        // adjacentCount = 5;
-      } else if (cord.row === 0 && cord.column > 0) {
-        // Borde superior
-        // adjacentCount = 5;
-      } else if (cord.column === borderColumn && cord.row > 0) {
-        // Borde derecho
-        // adjacentCount = 5;
-      } else if (cord.row === borderRow && cord.column > 0) {
-        // Borde inferior
-        // adjacentCount = 5;
-      } else if (
-        cord.colum > 0 &&
-        cord.colum < borderColumn &&
-        cord.row > 0 &&
-        cord.row < borderRow
-      ) {
-        // Middle
-      }
+    if (cord.column === 0 && cord.row === 0) {
+      // Esquina superior izquierda
+      // adjacentCount = 3;
+      // right => column + 1;
+      // lower-right-corner => column + 1 | row + 1
+      // down => row + 1
+      content = contentForUpperLeftCornerCell(matrix, cord);
+    } else if (cord.column === borderColumn && cord.row === borderRow) {
+      // Esquina inferior derecha
+      // adjacentCount = 3;
+      content = contentForLowerRightCornerCell(matrix, cord);
+    } else if (cord.column === borderColumn && cord.row === 0) {
+      // Esquina superior derecha
+      // adjacentCount = 3;
+      content = contentForUpperRightCornerCell(matrix, cord);
+    } else if (cord.column === 0 && cord.row === borderRow) {
+      // Esquina inferior izquierda
+      // adjacentCount = 3;
+      content = contentForLowerLeftCornerCell(matrix, cord);
+    } else if (cord.column === 0 && cord.row > 0) {
+      // Borde izquierdo
+      // adjacentCount = 5;
+      content = contentForLeftBorderCell(matrix, cord);
+    } else if (cord.row === 0 && cord.column > 0) {
+      // Borde superior
+      // adjacentCount = 5;
+      content = contentForUpperBorderCell(matrix, cord);
+    } else if (cord.column === borderColumn && cord.row > 0) {
+      // Borde derecho
+      // adjacentCount = 5;
+      content = contentForRightBorderCell(matrix, cord);
+    } else if (cord.row === borderRow && cord.column > 0) {
+      // Borde inferior
+      // adjacentCount = 5;
+      content = contentForDownBorderCell(matrix, cord);
+    } else if (
+      cord.column > 0 &&
+      cord.column < borderColumn &&
+      cord.row > 0 &&
+      cord.row < borderRow
+    ) {
+      // Middle
+      content = contentForMiddleCell(matrix, cord);
     }
 
     return content;
@@ -111,6 +112,130 @@ module.exports = (gameConfiguration) => {
     return content;
   };
 
+  const contentForUpperBorderCell = (matrix, cord) => {
+    // left
+    // right
+    // lowerRightCorner
+    // down
+    // lowerLeftCorner
+    const left = leftCell(matrix, cord);
+    const right = rightCell(matrix, cord);
+    const lowerRightCorner = lowerRightCornerCell(matrix, cord);
+    const down = downCell(matrix, cord);
+    const lowerLeftCorner = lowerLeftCornerCell(matrix, cord);
+
+    const content = defineContent([
+      left,
+      right,
+      lowerRightCorner,
+      down,
+      lowerLeftCorner,
+    ]);
+
+    return content;
+  };
+
+  const contentForLeftBorderCell = (matrix, cord) => {
+    // up
+    // upperRightCorner
+    // right
+    // lowerRightCorner
+    // down
+    const up = upCell(matrix, cord);
+    const upperRightCorner = upperRightCornerCell(matrix, cord);
+    const right = rightCell(matrix, cord);
+    const lowerRightCorner = lowerRightCornerCell(matrix, cord);
+    const down = downCell(matrix, cord);
+
+    const content = defineContent([
+      up,
+      upperRightCorner,
+      right,
+      lowerRightCorner,
+      down,
+    ]);
+
+    return content;
+  };
+
+  const contentForDownBorderCell = (matrix, cord) => {
+    // up
+    // upperLeftCorner
+    // left
+    // right
+    // upperRightCorner
+    const up = upCell(matrix, cord);
+    const upperLeftCorner = upperLeftCornerCell(matrix, cord);
+    const left = leftCell(matrix, cord);
+    const right = rightCell(matrix, cord);
+    const upperRightCorner = upperRightCornerCell(matrix, cord);
+
+    const content = defineContent([
+      up,
+      upperLeftCorner,
+      left,
+      right,
+      upperRightCorner,
+    ]);
+
+    return content;
+  };
+
+  const contentForRightBorderCell = (matrix, cord) => {
+    // up
+    // upperLeftCorner
+    // left
+    // lowerLeftCorner
+    // down
+    const up = upCell(matrix, cord);
+    const upperLeftCorner = upperLeftCornerCell(matrix, cord);
+    const left = leftCell(matrix, cord);
+    const lowerLeftCorner = lowerLeftCornerCell(matrix, cord);
+    const down = downCell(matrix, cord);
+
+    const content = defineContent([
+      up,
+      upperLeftCorner,
+      left,
+      lowerLeftCorner,
+      down,
+    ]);
+
+    return content;
+  };
+
+  const contentForMiddleCell = (matrix, cord) => {
+    // up
+    // upperLeftCorner
+    // left
+    // lowerLeftCorner
+    // down
+    // lowerRightCorner
+    // right
+    // upperRightCorner
+    const up = upCell(matrix, cord);
+    const upperLeftCorner = upperLeftCornerCell(matrix, cord);
+    const left = leftCell(matrix, cord);
+    const lowerLeftCorner = lowerLeftCornerCell(matrix, cord);
+    const down = downCell(matrix, cord);
+    const lowerRightCorner = lowerRightCornerCell(matrix, cord);
+    const right = rightCell(matrix, cord);
+    const upperRightCorner = upperRightCornerCell(matrix, cord);
+
+    const content = defineContent([
+      up,
+      upperLeftCorner,
+      left,
+      lowerLeftCorner,
+      down,
+      lowerRightCorner,
+      right,
+      upperRightCorner,
+    ]);
+
+    return content;
+  };
+
   const upCell = (matrix, cord) => {
     const cell = matrix[cord.column][cord.row - 1];
     return cell;
@@ -152,6 +277,7 @@ module.exports = (gameConfiguration) => {
   };
 
   const defineContent = (adjacent) => {
+    let content = constants.CELL.CONTENT.BLANK;
     let minesCount = 0;
 
     for (let i = 0; i < adjacent.length; i++) {
@@ -160,7 +286,11 @@ module.exports = (gameConfiguration) => {
       }
     }
 
-    return minesCount;
+    if (minesCount > 0) {
+      content = minesCount;
+    }
+
+    return content;
   };
 
   return {

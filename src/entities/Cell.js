@@ -6,7 +6,7 @@ class Cell {
   constructor(
     cord,
     isMine = false,
-    content = undefined,
+    content = constants.CELL.CONTENT.BLANK,
     state = constants.CELL.STATES.UNCOVERED
   ) {
     // debug

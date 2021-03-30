@@ -24,6 +24,7 @@ describe('createField', () => {
       const fieldExpected = new Field(
         COLUMNS,
         ROWS,
+        MINES,
         createMatrix(COLUMNS, ROWS)
       );
       // Act
@@ -34,6 +35,7 @@ describe('createField', () => {
       // Asserts
       expect(fieldActual.columns).toEqual(fieldExpected.columns);
       expect(fieldActual.rows).toEqual(fieldExpected.rows);
+      expect(fieldActual.mines).toEqual(fieldExpected.mines);
       expect(fieldActual).toBeInstanceOf(Field);
     });
   });

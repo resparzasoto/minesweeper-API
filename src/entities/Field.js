@@ -1,9 +1,10 @@
 'use strict';
 
 class Field {
-  constructor(columns, rows, matrix) {
+  constructor(columns, rows, mines, matrix) {
     this.columns = columns;
     this.rows = rows;
+    this.mines = mines;
     this.matrix = matrix;
   }
 }

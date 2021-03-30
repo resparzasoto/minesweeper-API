@@ -1,5 +1,6 @@
 'use strict';
 
+const constants = require('../../utils/constants');
 const createMatrix = require('../../utils/createMatrix');
 const createCordCommand = require('./createCord');
 const generateMineCommand = require('./generateMine');
@@ -20,6 +21,7 @@ module.exports = (gameConfiguration) => {
 
         if (isMine) {
           cell.isMine = isMine;
+          cell.content = constants.CELL.CONTENT.MINE;
           minesCount++;
         }
       }

@@ -11,12 +11,15 @@ module.exports = (gameConfiguration) => {
       for (let row = 0; row < rows; row++) {
         const cord = new Cord(column, row);
         const cell = matrix[cord.column][cord.row];
-        const content = identifyContentCommand(gameConfiguration).execute(
-          matrix,
-          cord
-        );
 
-        cell.content = content;
+        if (!cell.isMine) {
+          const content = identifyContentCommand(gameConfiguration).execute(
+            matrix,
+            cord
+          );
+
+          cell.content = content;
+        }
       }
     }
 
