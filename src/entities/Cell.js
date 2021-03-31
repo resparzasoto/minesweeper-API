@@ -1,8 +1,8 @@
 'use strict';
 
-const constants = require('../utils/constants');
+const constants = require('../frameworks/utils/constants');
 
-class Cell {
+module.exports = class Cell {
   constructor(
     cord,
     isMine = false,
@@ -16,6 +16,4 @@ class Cell {
     this.content = content;
     this.state = state;
   }
-}
-
-module.exports = Cell;
+};

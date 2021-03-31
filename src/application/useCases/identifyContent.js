@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 'use strict';
 
-const constants = require('../../utils/constants');
+const constants = require('../../frameworks/utils/constants');
 
 module.exports = (gameConfiguration) => {
   const execute = (matrix, cord) => {

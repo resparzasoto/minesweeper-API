@@ -1,16 +1,13 @@
 'use strict';
 
-const constants = require('../../utils/constants');
-const createMatrix = require('../../utils/createMatrix');
+const constants = require('../../frameworks/utils/constants');
 const createCordCommand = require('./createCord');
 const generateMineCommand = require('./generateMine');
 
 module.exports = (gameConfiguration) => {
-  const execute = () => {
-    const { columns, rows, mines } = gameConfiguration;
+  const execute = (matrix) => {
+    const { mines } = gameConfiguration;
     let minesCount = 0;
-
-    const matrix = createMatrix(columns, rows);
 
     while (minesCount < mines) {
       const cord = createCordCommand(gameConfiguration).execute();

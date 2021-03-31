@@ -1,7 +1,7 @@
 'use strict';
 
-const Cell = require('../entities/Cell');
-const Cord = require('../entities/Cord');
+const Cell = require('../../entities/Cell');
+const Cord = require('../../entities/Cord');
 
 const createMatrix = (columns, rows) => {
   const matrix = [];
